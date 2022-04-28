@@ -18,6 +18,11 @@ CSCI 466 Group Project: Hype Beast Web Store
 
 * FOREIGN KEY (userName) REFERENCES USER(userName)
 
+**ORDER_CONTENTS** (<ins>orderID, productID</ins>, orderQTY)
+
+* FOREIGN KEY (orderID) REFERENCES ORDER (orderID)
+* FOREIGN KEY (productID) REFERENCES INVENTORY (productID)
+
 **SHOPPING_CART** (<ins>userName&dagger;, productID&dagger;</ins>, orderQTY)
 
 * FOREIGN KEY (userName) REFERENCES USER(userName),
