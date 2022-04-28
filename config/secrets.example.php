@@ -1,0 +1,6 @@
+<?php
+
+$dbname = '';
+$dbuser = '';
+$dbpass = '';
+?>
