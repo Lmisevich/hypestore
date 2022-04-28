@@ -1,0 +1,37 @@
+DROP TABLE IF EXISTS SHOPPING_CART_TOTAL, SHOPPING_CART, `ORDER`,INVENTORY,USER;
+
+CREATE TABLE USER (
+    userName VARCHAR(20) PRIMARY KEY,
+    isEmployee BOOLEAN
+);
+
+CREATE TABLE INVENTORY (
+    productID INT PRIMARY KEY AUTO_INCREMENT,
+    productName VARCHAR(20),
+    price INT,
+    qty INT
+);
+
+CREATE TABLE `ORDER` (
+    orderID INT PRIMARY KEY AUTO_INCREMENT,
+    userName VARCHAR(20),
+    billingINFO CHAR(16),
+    shipINFO VARCHAR(255),
+    hasShipped BOOLEAN,
+    FOREIGN KEY (userName) REFERENCES USER(userName)
+);
+
+CREATE TABLE SHOPPING_CART (
+    userName VARCHAR(20),
+    productID INT,
+    orderQTY INT,
+    PRIMARY KEY (userName,productID),
+    FOREIGN KEY (userName) REFERENCES USER(userName),
+    FOREIGN KEY (productID) REFERENCES INVENTORY(productID)
+);
+
+CREATE TABLE SHOPPING_CART_TOTAL (
+    userName VARCHAR(20) PRIMARY KEY,
+    total INT,
+    FOREIGN KEY (userName) REFERENCES USER(userName)
+);
