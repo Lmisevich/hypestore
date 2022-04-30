@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to ShoeCircus</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong">
+    <style>
+        .header{
+
+            overflow: hidden;
+            background-color: #1E90FF;
+            color: white;
+            font-family: "Audiowide", sans-serif;
+            text-align: center;
+	    width: 100%;
+            box-shadow: 10px 10px 5px lightblue;
+        }
+        body{
+            margin: 0;
+        }
+        img{
+            display:block; 
+            text-align: center;
+            border-radius: 10%;
+
+            margin-left: auto;
+            margin-right: auto; 
+            margin-top: 3%;
+            width: 400px;
+            height: 400px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+    .login{
+    border: 10px groove dodgerblue;
+    background-color:lightgray;
+    border-radius: 5px;
+    font-family: "Audiowide", sans-serif;
+    font-size: 20px;
+    margin: auto;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    padding-top: 10%;
+    padding-bottom: 10%;
+    width: 50%;
+    /*padding-left: 19%;
+    padding-right: 1px; */
+    }
+
+    .login label{
+    text-align: left;
+    }
+
+    input[type=text], select, input[type=submit] {
+        width: 95%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        margin-left: 2%;
+        display: inline-block;
+        border: 1px solid #ccc;
+        box-sizing: border-box;
+    }
+
+    input[type=submit] {
+        color: white;
+        background-color: dodgerblue;
+    }
+
+    </style>
+</head>
+<body>
+    <div class="header">
+        
+    <h1>WELCOME TO SHOECIRCUS</h1>
+    </div>
+    <img src = "shoeimage/CompanyLogo.png" alt="CompanyLogo">
+    <div class = "login">
+        <form action = "process.php" method = "POST">
+            <label for = "username">Enter your Username</label><br>
+            <input type = "text" name= "username" placeholder="Username"/><br>
+            <input type = "submit" name = "Login" value = "Login">
+            <a href="createaccount.php">Create Account</a>
+        </form>
+    </div>
+</body>
+</html>
