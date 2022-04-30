@@ -1,5 +1,5 @@
-# hypestore
-CSCI 466 Group Project: Hype Beast Web Store
+# Shoe store
+CSCI 466 Group Project: Shoe Web Store
 
 ## DB schema
 - [project tables](https://docs.google.com/spreadsheets/d/1cPJKrGIBCxDm_qDSgNBjItgeaXRwLlNmgKw8SrmjlMc/edit#gid=0)
