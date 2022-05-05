@@ -75,6 +75,16 @@ h2{
   font-family: "Audiowide", sans-serif;
 }
 
+.footer{
+  background-color: black;
+  color: white;
+  width:100%;
+  padding: 10px 10px;
+  text-align: center;
+  margin-top: 20px;
+  font-family: Arial, Helvetica, sans-serif;
+
+}
 .icon-right{
   width: 50px;
   height: 50px;
@@ -133,8 +143,8 @@ h2{
   <a href="customermain.php" class="logo"><img class = "dart" src ="shoeimage/CompanyLogo.png" alt = "Company Logo" ></a>
   <a class="active" href="customermain.php"><img class = "icon" src ="shoeimage/Home.png" alt = "Home Page" ></a>
   <a href = "GroupProjectlogin.html"><img class = "icon-right" src = "shoeimage/Logout.png" alt = "Logout"></a>
-    <a href="orders.php"><img class = "icon-right" src ="shoeimage/OrderTracker.png" alt = "Orders" ></a>
-    <a href="shoppingcart.php"><img class = "icon-right" src ="shoeimage/ShoppingCart.png" alt = "Shopping Cart" ></a>
+    <a href="order_tracker.php"><img class = "icon-right" src ="shoeimage/OrderTracker.png" alt = "Orders" ></a>
+    <a href="shoppingcart2.php"><img class = "icon-right" src ="shoeimage/ShoppingCart.png" alt = "Shopping Cart" ></a>
   </div>
 </div>
 
@@ -143,10 +153,10 @@ h2{
     session_start();
 
     echo "<h1>Hi, ". $_SESSION["username"]."!</h1>";
-    include ("login.php");
+    include ("secrets.php");
     try{
 
-        $dsn = "mysql:host=courses;dbname=z1867741";
+        $dsn = "mysql:host=courses;dbname=".$username;
         $pdo = new PDO($dsn, $username, $password);
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     }
@@ -156,7 +166,6 @@ h2{
     }
 
     echo "<h2>" . $_GET["productName"]. "</h2>";
-    echo '<img class = "itempic" src = "shoeimage/'. $_GET["productName"].'.png" alt= "Product Image">';
 
     $rs = $pdo->prepare ("SELECT * FROM INVENTORY WHERE productName = ?;");
     $rs->execute(array($_GET["productName"]));
@@ -164,28 +173,53 @@ h2{
     
     if($rows)
     {
-        echo "<p>Price: $". $rows[0]["price"]."</p>";
-        echo '<form method="POST">';
-        echo '<label for= "quantity"> Quantity (Limit 2 per order): </label>
-        <select name = "quantity" id="quantity">
-        <option value = "1"> 1 </option>
-        <option value = "2"> 2 </option>
-        </select><br>
-        <input type = "hidden" id="productID" name="productID" value ="' . $rows[0]["productID"]. '">
-        <input type = "submit" name = "Add to Cart" value = "Add to Cart">
-        </form>';
+      echo '<img class = "itempic" src = "shoeimage/'. $rows[0]["productID"].'.png" alt= "Product Image">';
+      echo "<p>Price: $". $rows[0]["price"]."</p>";
+      echo '<form method="POST">';
+      echo '<label for= "quantity"> Quantity (Limit 2 per order): </label>
+      <select name = "quantity" id="quantity">
+      <option value = "1"> 1 </option>
+      <option value = "2"> 2 </option>
+      </select><br>
+      <input type = "hidden" id="productID" name="productID" value ="' . $rows[0]["productID"]. '">
+      <input type = "submit" name = "Add to Cart" value = "Add to Cart">
+      </form>';
     }
 
-    if($_POST)
+  if($_POST)
+  {
+    $rs = $pdo->prepare("SELECT * FROM SHOPPING_CART WHERE userName = ? AND productID = ? AND orderQTY = '2';");
+    $rs->execute(array($_SESSION["username"],$_POST["productID"]));
+    $rows = $rs->fetchAll(PDO::FETCH_ASSOC);
+
+    $rs = $pdo->prepare("SELECT * FROM SHOPPING_CART WHERE userName = ? AND productID = ? AND orderQTY = '1';");
+    $rs->execute(array($_SESSION["username"],$_POST["productID"]));
+    $rows2 = $rs->fetchAll(PDO::FETCH_ASSOC);
+
+    if (sizeof($rows)== 0 and sizeof($rows2) == 0)
     {
-        $rs = $pdo->prepare ("INSERT INTO SHOPPING_CART VALUES ( ?, ?, ?);");
-        $rs->execute(array($_SESSION["username"], $_POST["productID"], $_POST["quantity"]));
-
-        if($rs)
-        {
-            echo "Item added to shopping cart!!!";
-        }
+      $rs = $pdo->prepare ("INSERT INTO SHOPPING_CART VALUES ( ?, ?, ?);");
+      $rs->execute(array($_SESSION["username"], $_POST["productID"], $_POST["quantity"]));
+      if($rs)
+      {
+        echo "Item added to shopping cart!!!";
+      }
     }
+
+    else if($_POST["quantity"] == 1 and sizeof($rows2) != 0)
+    {
+      $rs = $pdo->prepare("UPDATE SHOPPING_CART SET orderQTY = ? WHERE userName = ? AND productID = ?;");
+      $rs->execute(array($_POST["quantity"], $_SESSION["username"],$_POST["productID"]));
+
+      echo "Item updated in shopping cart!!";
+  
+    }
+
+    else{
+      echo "Item cannot be added to Shopping Cart because you will exceed limit per order.";
+    }
+
+  }
 
 
 
@@ -194,6 +228,11 @@ h2{
 
 
 ?>
+
+<div class ="footer">
+  <p>Shoe Circus is a project made by Dominic Brooks, Jacob Diep, Jabari Cox, Dhruvit Patel, and Logan Misevich</p>
+</div>
+    
 
 </body>
 </html>

@@ -23,6 +23,15 @@ body {
   
 }
 
+.footer{
+  background-color: black;
+  color: white;
+  width:100%;
+  padding: 10px 10px;
+  text-align: center;
+
+}
+
 .header a {
   float: center;
   color: white;
@@ -77,10 +86,10 @@ h3{
   border: 10px dodgerblue;
   border-style: groove;
   padding-bottom: 5px;
-  padding-top: 10px;
+  padding-top: 20px;
   padding-left: 10px;
   padding-right: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 20px;
 }
 
 
@@ -108,35 +117,24 @@ h3{
   <a href="customermain.php" class="logo"><img class = "dart" src ="shoeimage/CompanyLogo.png" alt = "Company Logo" ></a>
   <a class="active" href="customermain.php"><img class = "icon" src ="shoeimage/Home.png" alt = "Home Page" ></a>
   <a href = "GroupProjectlogin.html"><img class = "icon-right" src = "shoeimage/Logout.png" alt = "Logout"></a>
-    <a href="orders.php"><img class = "icon-right" src ="shoeimage/OrderTracker.png" alt = "Orders" ></a>
+    <a href="order_tracker.php"><img class = "icon-right" src ="shoeimage/OrderTracker.png" alt = "Orders" ></a>
     <a href="shoppingcart2.php"><img class = "icon-right" src ="shoeimage/ShoppingCart.png" alt = "Shopping Cart" ></a>
-  </div>
 </div>
 
 <?php
 
 session_start();
-include("login.php");
+include("secrets.php");
 include("functionsgp.php");
 
 echo "<h2>Hi, ". $_SESSION["username"]."!</h2>";
 
 echo "<h3> Our Products </h3>";
-try{
-
-  $dsn = "mysql:host=courses;dbname=z1867741";
-  $pdo = new PDO($dsn, $username, $password);
-  $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-}
-
-catch(PDOexception $except) {
-  echo "Connection to database failed: " . $except->getMessage();
-}
 
 
 try{
 
-   $dsn = "mysql:host=courses;dbname=z1867741";
+   $dsn = "mysql:host=courses;dbname=". $username;
    $pdo = new PDO($dsn, $username, $password);
    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 }
@@ -162,7 +160,10 @@ if($rows)
 
 ?>
 
+<div class = "footer">
+  <p>Shoe Circus is a project made by Dominic Brooks, Jacob Diep, Jabari Cox, Dhruvit Patel, and Logan Misevich</p>
 
+</div>
     
 </body>
 </html>

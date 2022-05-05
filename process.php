@@ -3,11 +3,11 @@
 //echo "Hi it went through";
 //echo "<br>";
 
-include("login.php");
+include("secrets.php");
 
 try{
 
-    $dsn = "mysql:host=courses;dbname=z1867741";
+    $dsn = "mysql:host=courses;dbname=".$username;
     $pdo = new PDO($dsn, $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 }

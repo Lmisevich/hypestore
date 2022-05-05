@@ -10,7 +10,7 @@ function make_table1($rows){
     echo "<tr>";
     while($vals != sizeof($rows)){
      
-            echo '<td><a href="itemdesc.php?productName='.$rows[$vals]["productName"].'"><img src = "shoeimage/'.$rows[$vals]["productName"].'" alt="Shoe" style="width:200px;height:200px;"><p>'.$rows[$vals]["productName"].'</p></a></td>';
+            echo '<td><a href="itemdesc.php?productName='.$rows[$vals]["productName"].'"><img src = "shoeimage/'.$rows[$vals]["productID"].'.png" alt="Shoe" style="width:200px;height:200px;"><p>'.$rows[$vals]["productName"].'</p></a></td>';
 
             $vals = $vals + 1;
             $count = $count + 1;

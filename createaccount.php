@@ -11,7 +11,7 @@
 
 body { 
   margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Audiowide", sans-serif;
 }
 
 .header {
@@ -139,12 +139,12 @@ input[type=submit] {
     </form>
 </div> 
 <?php
-include("login.php");
+include("secrets.php");
 include("functionsgp.php");
 
 try{
 
-   $dsn = "mysql:host=courses;dbname=z1867741";
+   $dsn = "mysql:host=courses;dbname=".$username;
    $pdo = new PDO($dsn, $username, $password);
    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 }
@@ -176,7 +176,7 @@ if($_POST)
     }
 
     catch(PDOexception $except) {
-        echo "Insertion failed: Username Already exists.". $except->getMessage();
+        echo "Insertion failed: Username Already exists. Try another username.";
         echo '<a href = "createaccount.php">Click here and try again</a>';
         $count = 1;
     }
